@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block content %}
+<div class="container">
+    {% include 'messages.html' with messages=messages %}
+    <div class="page-title">
+        Detalhes do produto
+    </div>
+
+    <div class="details-image" style="background-image: url('{{ product.product_url_image }}')"></div>
+
+    <div class="details-content">
+        <div class="details-title">
+            {{ product.product_name }}
+        </div>
+
+        <div class="details-description">
+            {{ product.product_description }}
+        </div>
+        {% if user.is_authenticated %}
+        <div class="details-buy">
+            <a href="{% url 'ecommerce:checkout' product.id %}">
+                <i class="zmdi zmdi-shopping-cart-plus"></i> Comprar</a>
+        </div>
+        {% endif %}
+        <div class="details-buy back-button">
+            <a href="{% url 'ecommerce:home_ecommerce' %}">
+                <i class="zmdi zmdi-arrow-left"></i> Voltar</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

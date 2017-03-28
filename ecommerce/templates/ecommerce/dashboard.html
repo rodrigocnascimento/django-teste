@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+
+{% load static humanize %}
+
+{% block content %}
+<div class="container">
+    <div class="page-title">
+        Olá, {{ user.username }}
+    </div>
+    <div class="list-products">
+        <div class="page-title">
+            Vendas realizadas
+        </div>
+        <table class="table-data" border="0">
+            <thead>
+            <tr>
+                <th>Produto</th>
+                <th>Comprardor</th>
+                <th>R$ Preço</th>
+                <th>Quantidade</th>
+                <th>R$ Total</th>
+                <th>Data da venda</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for sold_item in user_sold_items %}
+            <tr>
+                <td>{{ sold_item.product.product_name }}</td>
+                <td>{{ sold_item.buyer.first_name }} {{ sold_item.buyer.last_name }}</td>
+                <td>{{ sold_item.sale_product_price|floatformat:2 }}</td>
+                <td>{{ sold_item.sale_product_qtd }}</td>
+                <td>{{ sold_item.total|floatformat:2|intcomma }}</td>
+                <td>{{ sold_item.sale_date }}</td>
+            </tr>
+            {% empty %}
+            <tr class="table-empty">
+                <td colspan="6">Nenhuma venda até o momento :(</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="list-products">
+        <div class="page-title">
+            Produtos comprados
+        </div>
+        <table class="table-data" border="0">
+            <thead>
+            <tr>
+                <th>Produto</th>
+                <th>Comprardor</th>
+                <th>R$ Preço</th>
+                <th>Quantidade</th>
+                <th>R$ Total</th>
+                <th>Data da venda</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for bought_item in user_bought_items %}
+            <tr>
+                <td>{{ bought_item.product.product_name }}</td>
+                <td>{{ bought_item.seller.first_name }} {{ bought_item.seller.last_name }}</td>
+                <td>{{ bought_item.sale_product_price|floatformat:2 }}</td>
+                <td>{{ bought_item.sale_product_qtd }}</td>
+                <td>{{ bought_item.total|floatformat:2|intcomma }}</td>
+                <td>{{ bought_item.sale_date }}</td>
+            </tr>
+            {% empty %}
+            <tr class="table-empty">
+                <td colspan="6">Você ainda não comprou nada? :( <a href="{% url 'ecommerce:home_ecommerce' %}">Dá uma
+                    olhada em nossos produtos </a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

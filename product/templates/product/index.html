@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="container container-products">
+    <div class="page-title">
+        Produtos
+    </div>
+    {% include 'messages.html' with messages=messages %}
+    <div class="list-products">
+        {% for product in products %}
+        <div class="list-product-each">
+            <div class="list-product-thumbnail" style="background-image: url('{{ product.product_url_image }}')"></div>
+            <div class="list-product-title">
+                {{ product.product_name }}
+            </div>
+            <div class="list-product-options">
+                <a href="{% url 'product:edit' product.id %}" class="edit">
+                    Editar <i class="zmdi zmdi-edit"></i>
+                </a>
+                <a href="{% url 'product:delete' product.id %}" class="delete">
+                    Excluir <i class="zmdi zmdi-close"></i>
+                </a>
+            </div>
+            <div class="list-product-bought">
+                {{ product.product_description|truncatechars:140 }}
+            </div>
+        </div>
+        {% empty %}
+        <div class="list-product-empty">
+            Porque não <a href="{% url 'product:add' %}">adiciona</a> um produto agora mesmo?
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

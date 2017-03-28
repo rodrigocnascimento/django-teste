@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% load i18n static %}
+
+{% block content %}
+
+<div class="login-container">
+
+    {% include 'messages.html' with messages=messages %}
+    <div class="login-title">
+        Edição de perfil
+    </div>
+
+
+    <form action="." method="post" id="login-form">{% csrf_token %}
+        <div class="login-input">
+            {{ form.first_name }}
+            {{ form.first_name.errors }}
+        </div>
+        <div class="login-input">
+            {{ form.last_name }}
+            {{ form.last_name.errors }}
+        </div>
+        <div class="login-input">
+            {{ form.username }}
+            {{ form.username.errors }}
+        </div>
+        <div class="login-input">
+            {{ form.email }}
+            {{ form.email.errors }}
+        </div>
+
+        <div class="login-button">
+            <a href="{% url 'ecommerce:dashboard_ecommerce' %}"> <i class="zmdi zmdi-arrow-left"></i> Voltar</a>
+            <input type="submit" value="Atualizar"/>
+            <a href="{% url 'ecommerce:change_password' %}"> <i class="zmdi zmdi-lock-open"></i> Trocar senha</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

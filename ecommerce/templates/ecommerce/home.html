@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+    {% include 'messages.html' with messages=messages %}
+    <div class="page-title">
+        Produtos
+    </div>
+    <div class="items-comprados">
+        <div class="items-comprados-container">
+            {% for product in products %}
+            <div class="item-each">
+                <div class="item-image" style="background-image: url('{{ product.product_url_image }}')"></div>
+                <div class="item-title">
+                    {{ product.product_name }}
+                </div>
+                <div class="item-description">
+                    {{ product.product_description|truncatechars:30 }}
+                </div>
+                <div class="item-buy">
+                    <div class="see-more">
+                        <a href="{% url 'ecommerce:product_detail' product.id %}">Visualizar</a>
+                    </div>
+                    {% if user.is_authenticated %}
+                    <div class="buy-item">
+                        <a class="buy-button" href="{% url 'ecommerce:checkout' product.id %}">
+                            <i class="zmdi zmdi-shopping-cart-plus"></i>
+                            Comprar</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+                <h3>Nenhum produto cadastrado!</h3>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

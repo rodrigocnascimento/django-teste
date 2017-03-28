@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% load i18n static %}
+
+{% block content %}
+
+<div class="login-container">
+    <div class="login-title">
+        Cadastro
+    </div>
+
+    <form action="." method="post" id="login-form">{% csrf_token %}
+        <div class="login-input">
+            {{ form.first_name }}
+            {{ form.first_name.errors }}
+        </div>
+        <div class="login-input">
+            {{ form.last_name }}
+            {{ form.last_name.errors }}
+        </div>
+        <div class="login-input">
+            {{ form.username }}
+            {{ form.username.errors }}
+        </div>
+        <div class="login-input">
+            {{ form.email }}
+            {{ form.email.errors }}
+        </div>
+
+        <div class="login-input">
+            {{ form.password }}
+            {{ form.password.errors }}
+        </div>
+
+        <div class="login-input">
+            {{ form.password_repeat }}
+            {{ form.password_repeat.errors }}
+        </div>
+        <div class="login-button">
+            <a href="/"> <i class="zmdi zmdi-arrow-left"></i> Voltar</a>
+            <input type="submit" value="Cadastrar"/>
+        </div>
+    </form>
+</div>
+{% endblock %}

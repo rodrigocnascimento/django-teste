@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="container container-products">
+    {% include 'messages.html' with messages=messages %}
+    <div class="list-products">
+        <form action="{% url 'product:edit' product_id %}" method="post">{% csrf_token %}
+            <div class="add-product">
+                <div class="add-product-title">
+                    Editar de item
+                </div>
+                <img src="{{ form.product_url_image.value }}" alt="Imagem" class="product-image">
+                <div class="add-product-input">
+                    {{ form.product_name }}
+                    {{ form.errors.product_name }}
+                </div>
+                <div class="add-product-input">
+                    {{ form.product_price }}
+                    {{ form.errors.product_price }}
+                </div>
+                <div class="add-product-input">
+                    {{ form.product_qtd }}
+                    {{ form.errors.product_qtd }}
+                </div>
+
+                <div class="add-product-input">
+                    {{ form.product_url_image }}
+                    {{ form.errors.product_url_image }}
+                </div>
+                <div class="add-product-input">
+                    {{ form.product_description }}
+                </div>
+
+                <div class="add-product-button">
+                    <input type="submit" value="Editar"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

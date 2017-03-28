@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="page-title">
+        Checkout de compra
+    </div>
+
+    <div class="details-image" style="background-image: url('{{ product.product_url_image }}')"></div>
+
+    <div class="details-content">
+        <div class="details-title">
+            {{ product.product_name }}
+        </div>
+        <div class="details-description">
+            Usuário: {{ product.user.username }}
+        </div>
+        <div class="details-description">
+            R$ {{ product.product_price }}
+        </div>
+        {% if user.is_authenticated and product.product_qtd != 0 %}
+        <div class="details-description">
+            Quantidade em estoque {{ product.product_qtd }}
+        </div>
+        <form action="{% url 'ecommerce:checkout' product.id %}" method="post">{% csrf_token %}
+            <div class="add-product-input">
+                {{ form.sale_product_qtd }}
+            </div>
+            <div class="details-buy">
+                <button type="submit">
+                    <i class="zmdi zmdi-shopping-cart-plus"></i> Finalizar</button>
+            </div>
+        </form>
+        {% else %}
+            <br /><h3>Produto indisponível</h3>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

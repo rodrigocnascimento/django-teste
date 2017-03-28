@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="login-container">
+    {% include 'form/non_field_errors.html' with non_field_errors=form.non_field_errors %}
+    <div class="login-title">
+        Login
+    </div>
+    <form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
+
+        <div class="login-input">
+            {{ form.username }}
+            {{ form.username.errors }}
+        </div>
+
+        <div class="login-input">
+            {{ form.password}}
+            {{ form.password.errors }}
+            <input type="hidden" name="next" value="{{ next }}"/>
+        </div>
+
+        <div class="login-button">
+            <input type="submit" value="Login"/>
+        </div>
+    </form>
+</div>
+{% endblock %}

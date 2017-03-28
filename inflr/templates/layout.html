@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Inflr Test </title>
+    <title> Inflr Test </title>
+    <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}" />
+    <link rel="stylesheet" href="{% static "css/material-design-iconic-font.css" %}">
+    <meta name="author" content="Inflr">
+    <meta name="description" content="Inflr">
+    <meta name="keywords" content="Inflr">
+    <meta name="viewport" content="initial-scale=1">
+</head>
+<body>
+<header class="header-wrapper">
+    <div class="header-logo">
+        <a href="{% url 'ecommerce:home_ecommerce' %}">
+            <img src="{% static "images/logo.png" %}" alt="Home">
+        </a>
+    </div>
+    <div class="header-links">
+
+        {% if user.is_authenticated %}
+        <div><a href="{% url 'ecommerce:dashboard_ecommerce' %}"> Dashboard </a></div>
+        {% if request.get_full_path == "/product/" %}
+        <div><a href="{% url 'product:add' %}"> Adicionar </a></div>
+        {% else %}
+        <div><a href="{% url 'product:index' %}"> Produtos </a></div>
+        {% endif %}
+        <div><a href="{% url 'ecommerce:user_profile' %}">Editar perfil</a></div>
+        <div><a href="/logout"> Logout </a></div>
+        {% endif %}
+
+        {% if not user.is_authenticated %}
+        <div><a href="/register"> Cadastro</a></div>
+        <div><a href="/login"> Login </a></div>
+        {% endif %}
+    </div>
+
+</header>
+{% block content %}
+{% endblock %}
+</body>
+</html>
